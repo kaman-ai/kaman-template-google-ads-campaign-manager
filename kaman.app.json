@@ -1,0 +1,60 @@
+{
+  "name": "Google Ads Campaign Manager",
+  "agents": {
+    "ads_analyst": "be8e2229-f748-5192-8a8c-95f7db60309a",
+    "ads_operator": "0ce3c712-5675-5082-9b96-c45a6b53f4f6"
+  },
+  "workflows": {
+    "flow": "28aae23c-310f-5e8f-90fc-1aa05aba242d"
+  },
+  "ui": {
+    "title": "Google Ads Campaign Manager",
+    "tagline": "Optimises Google Ads every day: finds wasted search terms, campaigns over target CPA and budget-limited winners with rules in code, proposes bid, budget and negative-keyword changes with reasons, applies small ones inside your guardrails and asks the marketing manager for the rest.",
+    "actions": [
+      {
+        "id": "run",
+        "label": "Run: Daily Google Ads optimisation",
+        "description": "Each day Kaman pulls campaign and search-term performance, finds wasted spend, over-target CPA and budget-limited winners with rules in code, proposes bid, budget and negative-keyword changes, applies small ones within your guardrails, and asks the marketing manager for anything larger.",
+        "kind": "workflow",
+        "target": "flow",
+        "wrap": "payload",
+        "inputs": [
+          {
+            "name": "account",
+            "label": "Account",
+            "kind": "text",
+            "default": "123-456-7890"
+          },
+          {
+            "name": "date",
+            "label": "Date",
+            "kind": "text",
+            "default": "2026-09-30"
+          },
+          {
+            "name": "lookback_days",
+            "label": "Lookback days",
+            "kind": "number",
+            "default": 14
+          }
+        ]
+      },
+      {
+        "id": "ask",
+        "label": "Ask the Ads Performance Analyst",
+        "description": "Pulls campaign and search-term performance from Google Ads.",
+        "kind": "agent",
+        "target": "ads_analyst",
+        "prompt": "{{question}}",
+        "inputs": [
+          {
+            "name": "question",
+            "label": "Your question",
+            "kind": "text",
+            "default": "Pull 14 days of performance for the connected account."
+          }
+        ]
+      }
+    ]
+  }
+}
